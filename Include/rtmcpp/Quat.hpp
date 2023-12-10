@@ -1,9 +1,11 @@
 #pragma once
 
-#include <rtm/quatf.h>
-#include <rtm/quatd.h>
+#if !defined(RTMCPP_BUILD_MODULE)
+	#include <rtm/quatf.h>
+	#include <rtm/quatd.h>
+#endif
 
-namespace rtmcpp {
+RTMCPP_EXPORT namespace rtmcpp {
 
 	template<typename ComponentType>
 	struct Quat
@@ -25,16 +27,6 @@ namespace rtmcpp {
 		Quat operator*(const Quat& other) const noexcept
 		{
 			return { rtm::quat_mul(Value, other.Value) };
-		}
-
-		static Quat FromEuler(const Vector<ComponentType, 3>& eulerAngles)
-		{
-			return { rtm::quat_from_euler(eulerAngles.X, eulerAngles.Y, eulerAngles.Z) };
-		}
-
-		static Quat AngleAxis(ComponentType angle, const Vector<ComponentType, 3>& axis)
-		{
-			return { rtm::quat_from_axis_angle(axis.Value, angle) };
 		}
 	};
 

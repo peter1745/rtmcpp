@@ -1,20 +1,19 @@
 #pragma once
 
-#include "Vector.hpp"
-#include "Quat.hpp"
+#if !defined(RTMCPP_BUILD_MODULE)
+	#include <rtm/matrix3x4f.h>
+	#include <rtm/matrix3x4d.h>
+	#include <rtm/matrix4x4f.h>
+	#include <rtm/matrix4x4d.h>
+#endif
 
-#include <rtm/matrix3x4f.h>
-#include <rtm/matrix3x4d.h>
-#include <rtm/matrix4x4f.h>
-#include <rtm/matrix4x4d.h>
-
-namespace rtmcpp {
+RTMCPP_EXPORT namespace rtmcpp {
 
 	template<typename ComponentType>
 	struct Matrix3x4
 	{
-		using RTMType = std::conditional_t<std::is_same_v<ComponentType, float>, rtm::matrix3x4f, rtm::matrix3x4d>;
-		RTMType Value;
+		using ValueType = std::conditional_t<std::is_same_v<ComponentType, float>, rtm::matrix3x4f, rtm::matrix3x4d>;
+		ValueType Value;
 
 		Matrix3x4& operator*=(const Matrix3x4& other)
 		{
@@ -27,27 +26,13 @@ namespace rtmcpp {
 			return rtm::matrix_mul(Value, other.Value);
 		}
 
-		static Matrix3x4 Translation(const Vector<ComponentType, 3>& translation)
-		{
-			return { rtm::matrix_from_translation(translation.Value) };
-		}
-
-		static Matrix3x4 Rotation(const Quat<ComponentType>& rotation)
-		{
-			return { rtm::matrix_from_quat(rotation.Value) };
-		}
-
-		static Matrix3x4 Scale(const Vector<ComponentType, 3>& scale)
-		{
-			return { rtm::matrix_from_scale(scale.Value) };
-		}
 	};
 	
 	template<typename ComponentType>
 	struct Matrix4x4
 	{
-		using RTMType = std::conditional_t<std::is_same_v<ComponentType, float>, rtm::matrix4x4f, rtm::matrix4x4d>;
-		RTMType Value;
+		using ValueType = std::conditional_t<std::is_same_v<ComponentType, float>, rtm::matrix4x4f, rtm::matrix4x4d>;
+		ValueType Value;
 
 		Matrix4x4& operator*=(const Matrix4x4& other)
 		{

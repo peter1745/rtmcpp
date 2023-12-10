@@ -2,7 +2,7 @@
 
 #include "Vector.hpp"
 
-namespace rtmcpp {
+RTMCPP_EXPORT namespace rtmcpp {
 
 	template<typename ComponentType>
 	struct PackedVector2

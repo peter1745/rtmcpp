@@ -1,8 +1,12 @@
-#include <rtmcpp/Common.hpp>
-#include <rtmcpp/Scalar.hpp>
-#include <rtmcpp/Transforms.hpp>
+module;
 
-int main(int argc, char* argv[])
+#include <iostream>
+
+export module Main;
+
+import rtmcpp;
+
+export int main()
 {
 	using namespace rtmcpp;
 

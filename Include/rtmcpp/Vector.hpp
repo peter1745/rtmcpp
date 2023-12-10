@@ -1,12 +1,12 @@
 #pragma once
 
-#include <rtm/math.h>
-#include <rtm/vector4f.h>
-#include <rtm/vector4d.h>
+#if !defined(RTMCPP_BUILD_MODULE)
+	#include <rtm/math.h>
+	#include <rtm/vector4f.h>
+	#include <rtm/vector4d.h>
+#endif
 
-#include <array>
-
-namespace rtmcpp {
+RTMCPP_EXPORT namespace rtmcpp {
 
 	template<typename ComponentType, size_t ComponentCount>
 	struct Vector
@@ -55,15 +55,6 @@ namespace rtmcpp {
 		Vector(const Vector<ComponentType, 3>& xyz, ComponentType w = ComponentType(0)) noexcept requires(ComponentCount >= 3)
 		{
 			Value = rtm::vector_set(xyz.X, xyz.Y, xyz.Z, 0.0f);
-		}
-
-		Vector(std::array<ComponentType, ComponentCount> values) noexcept
-			: Value(rtm::vector_zero())
-		{
-			for (size_t i = 0; i < ComponentCount; i++)
-			{
-				Value = rtm::vector_set_component(Value, values[i], static_cast<rtm::component4>(i));
-			}
 		}
 
 		Vector(const Vector& other) noexcept
