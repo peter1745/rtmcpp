@@ -3,6 +3,7 @@
 #include "Vector.hpp"
 #include "Matrix.hpp"
 #include "Quat.hpp"
+#include "TRS.hpp"
 
 RTMCPP_EXPORT namespace rtmcpp {
 
@@ -22,6 +23,12 @@ RTMCPP_EXPORT namespace rtmcpp {
 	Matrix3x4<ComponentType> Scale(const Vector<ComponentType, 3>& scale)
 	{
 		return { rtm::matrix_from_scale(scale.Value) };
+	}
+
+	template<typename ComponentType>
+	Matrix3x4<ComponentType> MatrixFromTRS(const TRS<ComponentType>& trs)
+	{
+		return { rtm::matrix_from_qvv(rtm::qvv_set(trs.Rotation.Value, trs.Translation.Value, trs.Scale.Value)) };
 	}
 
 }

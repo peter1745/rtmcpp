@@ -1,3 +1,4 @@
 [submodule "rtm"]
 	path = rtm
 	url = https://github.com/nfrechette/rtm
+	branch = release/2.2

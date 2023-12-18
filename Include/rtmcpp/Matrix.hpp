@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Core.hpp"
+
 #if !defined(RTMCPP_BUILD_MODULE)
 	#include <rtm/matrix3x4f.h>
 	#include <rtm/matrix3x4d.h>
@@ -13,39 +15,38 @@ RTMCPP_EXPORT namespace rtmcpp {
 	struct Matrix3x4
 	{
 		using ValueType = std::conditional_t<std::is_same_v<ComponentType, float>, rtm::matrix3x4f, rtm::matrix3x4d>;
-		ValueType Value;
+		ValueType Value = rtm::matrix_identity();
 
-		Matrix3x4& operator*=(const Matrix3x4& other)
+		Matrix3x4& RTMCPP_VECTOR_CALL operator*=(const Matrix3x4& other)
 		{
 			Value = rtm::matrix_mul(Value, other.Value);
 			return *this;
 		}
 
-		Matrix3x4 operator*(const Matrix3x4& other) const
+		Matrix3x4 RTMCPP_VECTOR_CALL operator*(const Matrix3x4& other) const
 		{
-			return rtm::matrix_mul(Value, other.Value);
+			return { rtm::matrix_mul(Value, other.Value) };
 		}
-
 	};
 	
 	template<typename ComponentType>
 	struct Matrix4x4
 	{
 		using ValueType = std::conditional_t<std::is_same_v<ComponentType, float>, rtm::matrix4x4f, rtm::matrix4x4d>;
-		ValueType Value;
+		ValueType Value = rtm::matrix_identity();
 
-		Matrix4x4& operator*=(const Matrix4x4& other)
+		Matrix4x4& RTMCPP_VECTOR_CALL operator*=(const Matrix4x4& other)
 		{
 			Value = rtm::matrix_mul(Value, other.Value);
 			return *this;
 		}
 
-		Matrix4x4 operator*(const Matrix4x4& other) const
+		Matrix4x4 RTMCPP_VECTOR_CALL operator*(const Matrix4x4& other) const
 		{
-			return rtm::matrix_mul(Value, other.Value);
+			return { rtm::matrix_mul(Value, other.Value) };
 		}
 
-		static Matrix4x4 PerspectiveInfReversedZ(ComponentType fovy, ComponentType aspect, ComponentType nearZ)
+		static Matrix4x4 RTMCPP_VECTOR_CALL PerspectiveInfReversedZ(ComponentType fovy, ComponentType aspect, ComponentType nearZ)
 		{
 			Matrix4x4 result;
 
@@ -61,15 +62,15 @@ RTMCPP_EXPORT namespace rtmcpp {
 	};
 
 	template<typename ComponentType>
-	Matrix3x4<ComponentType> operator*(const Matrix3x4<ComponentType>& lhs, const Matrix4x4<ComponentType>& rhs)
+	Matrix3x4<ComponentType> RTMCPP_VECTOR_CALL operator*(const Matrix3x4<ComponentType>& lhs, const Matrix4x4<ComponentType>& rhs)
 	{
-		return rtm::matrix_cast((Matrix4x4<ComponentType>{rtm::matrix_cast(lhs.Value)} * rhs).Value);
+		return { rtm::matrix_cast((Matrix4x4<ComponentType>{rtm::matrix_cast(lhs.Value)} * rhs).Value) };
 	}
 
-	using Mat3x4f = Matrix3x4<float>;
-	using Mat4f = Matrix4x4<float>;
+	using Mat3x4 = Matrix3x4<float>;
+	using Mat4 = Matrix4x4<float>;
 
-	using Mat3x4d = Matrix3x4<double>;
-	using Mat4d = Matrix4x4<double>;
+	using Mat3x4D = Matrix3x4<double>;
+	using Mat4D = Matrix4x4<double>;
 
 }

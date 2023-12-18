@@ -52,12 +52,12 @@ RTMCPP_EXPORT namespace rtmcpp {
 		operator Vector<ComponentType, 4>() const noexcept { return Vector<ComponentType, 4>{ X, Y, Z, W }; }
 	};
 
-	using PackedVec2f = PackedVector2<float>;
-	using PackedVec3f = PackedVector3<float>;
-	using PackedVec4f = PackedVector4<float>;
+	using PackedVec2 = PackedVector2<float>;
+	using PackedVec3 = PackedVector3<float>;
+	using PackedVec4 = PackedVector4<float>;
 
-	using PackedVec2d = PackedVector2<double>;
-	using PackedVec3d = PackedVector3<double>;
-	using PackedVec4d = PackedVector4<double>;
+	using PackedVec2D = PackedVector2<double>;
+	using PackedVec3D = PackedVector3<double>;
+	using PackedVec4D = PackedVector4<double>;
 
 }

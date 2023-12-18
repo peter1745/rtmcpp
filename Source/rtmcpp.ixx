@@ -1,8 +1,10 @@
 module;
 
+#include <rtm/math.h>
 #include <rtm/scalarf.h>
 #include <rtm/scalard.h>
-#include <rtm/math.h>
+#include <rtm/qvvf.h>
+#include <rtm/qvvd.h>
 #include <rtm/vector4f.h>
 #include <rtm/vector4d.h>
 #include <rtm/matrix3x4f.h>
@@ -26,5 +28,7 @@ export module rtmcpp;
 #include "Vector.hpp"
 #include "VectorOps.hpp"
 #include "Scalar.hpp"
+
+#include "Conversion.hpp"
 
 #pragma warning(pop)

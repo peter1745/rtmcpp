@@ -1,10 +1,14 @@
 #pragma once
 
+#include "Core.hpp"
+
 #if !defined(RTMCPP_BUILD_MODULE)
 	#include <rtm/math.h>
 	#include <rtm/vector4f.h>
 	#include <rtm/vector4d.h>
 #endif
+
+#include "Conversion.hpp"
 
 RTMCPP_EXPORT namespace rtmcpp {
 
@@ -62,59 +66,59 @@ RTMCPP_EXPORT namespace rtmcpp {
 		{
 		}
 
-		Vector& operator+=(const Vector& other) noexcept
+		Vector& RTMCPP_VECTOR_CALL operator+=(const Vector& other) noexcept
 		{
 			Value = rtm::vector_add(Value, other.Value);
 			return *this;
 		}
 
-		Vector& operator-=(const Vector& other) noexcept
+		Vector& RTMCPP_VECTOR_CALL operator-=(const Vector& other) noexcept
 		{
 			Value = rtm::vector_sub(Value, other.Value);
 			return *this;
 		}
 
-		Vector& operator*=(const Vector& other) noexcept
+		Vector& RTMCPP_VECTOR_CALL operator*=(const Vector& other) noexcept
 		{
 			Value = rtm::vector_mul(Value, other.Value);
 			return *this;
 		}
 
-		Vector& operator/=(const Vector& other) noexcept
+		Vector& RTMCPP_VECTOR_CALL operator/=(const Vector& other) noexcept
 		{
 			Value = rtm::vector_div(Value, other.Value);
 			return *this;
 		}
 
-		Vector operator+(const Vector& other) const noexcept
+		Vector RTMCPP_VECTOR_CALL operator+(const Vector& other) const noexcept
 		{
 			Vector result;
 			result.Value = rtm::vector_add(Value, other.Value);
 			return result;
 		}
 
-		Vector operator-(const Vector& other) const noexcept
+		Vector RTMCPP_VECTOR_CALL operator-(const Vector& other) const noexcept
 		{
 			Vector result;
 			result.Value = rtm::vector_sub(Value, other.Value);
 			return result;
 		}
 
-		Vector operator*(const Vector& other) const noexcept
+		Vector RTMCPP_VECTOR_CALL operator*(const Vector& other) const noexcept
 		{
 			Vector result;
 			result.Value = rtm::vector_mul(Value, other.Value);
 			return result;
 		}
 
-		Vector operator/(const Vector& other) const noexcept
+		Vector RTMCPP_VECTOR_CALL operator/(const Vector& other) const noexcept
 		{
 			Vector result;
 			result.Value = rtm::vector_div(Value, other.Value);
 			return result;
 		}
 
-		ComponentType Length() const
+		ComponentType RTMCPP_VECTOR_CALL Length() const
 		{
 			if constexpr (ComponentCount == 2)
 			{
@@ -131,7 +135,7 @@ RTMCPP_EXPORT namespace rtmcpp {
 			}
 		}
 
-		void Normalize()
+		void RTMCPP_VECTOR_CALL Normalize()
 		{
 			if constexpr (ComponentCount == 2)
 			{
@@ -147,19 +151,19 @@ RTMCPP_EXPORT namespace rtmcpp {
 			}
 		}
 
-		Vector Normalized() const
+		Vector RTMCPP_VECTOR_CALL Normalized() const
 		{
 			Vector result = *this;
 			result.Normalize();
 			return result;
 		}
 
-		ComponentType Cross(const Vector& other) const noexcept requires(ComponentCount == 3)
+		ComponentType RTMCPP_VECTOR_CALL Cross(const Vector& other) const noexcept requires(ComponentCount == 3)
 		{
 			return rtm::vector_cross3(Value, other.Value);
 		}
 
-		ComponentType Dot(const Vector& other) const noexcept
+		ComponentType RTMCPP_VECTOR_CALL Dot(const Vector& other) const noexcept
 		{
 			if constexpr (ComponentCount == 2)
 			{
@@ -175,19 +179,21 @@ RTMCPP_EXPORT namespace rtmcpp {
 			}
 		}
 
-		ComponentType Distance(const Vector& other) const noexcept requires(ComponentCount == 3)
+		ComponentType RTMCPP_VECTOR_CALL Distance(const Vector& other) const noexcept requires(ComponentCount == 3)
 		{
 			return rtm::vector_distance3(Value, other.Value);
 		}
 
+		template<bool dummy = true>
+		operator glm::vec3() const requires(IsObject<glm::vec3>) { return { X, Y, Z }; }
 	};
 
-	using Vec2f = Vector<float, 2>;
-	using Vec3f = Vector<float, 3>;
-	using Vec4f = Vector<float, 4>;
+	using Vec2 = Vector<float, 2>;
+	using Vec3 = Vector<float, 3>;
+	using Vec4 = Vector<float, 4>;
 
-	using Vec2d = Vector<double, 2>;
-	using Vec3d = Vector<double, 3>;
-	using Vec4d = Vector<double, 4>;
+	using Vec2D = Vector<double, 2>;
+	using Vec3D = Vector<double, 3>;
+	using Vec4D = Vector<double, 4>;
 
 }

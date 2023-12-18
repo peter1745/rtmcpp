@@ -2,15 +2,21 @@
 #include <rtmcpp/Scalar.hpp>
 #include <rtmcpp/Transforms.hpp>
 
+namespace glm {
+
+	struct vec3
+	{
+		float x, y, z;
+	};
+
+}
+
 int main(int argc, char* argv[])
 {
 	using namespace rtmcpp;
 
-	auto quat = AngleAxis(Radians(50.0f), { 0.0f, 1.0f, 0.0f });
-	Mat3x4f quat_mat = Mat3x4Cast(quat);
-	Mat4f quat_mat4 = Mat4Cast(quat);
-
-	auto m = Rotation(quat);
+	auto proj = Mat4::PerspectiveInfReversedZ(Radians(90.0f), 1920.0f / 1080.0f, 0.01f);
+	auto v = (Scale<float>({ 100.0f, 0.5f, 1000.0f }) * Rotation<float>(AngleAxis<float>(Radians(60.0f), { 0.0f, 1.0f, 0.0f })) * Translation<float>({ 10000.0f, 1000.0f, 5000.0f })) * proj;
 
 	return 0;
 }
