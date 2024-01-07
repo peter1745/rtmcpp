@@ -28,5 +28,9 @@ project "Tests"
 		"./rtm/includes/"
 	}
 
+    defines {
+        "RTMCPP_EXPORT="
+    }
+
 	filter { "configurations:Release" }
 		vectorextensions "AVX2"

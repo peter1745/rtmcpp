@@ -20,6 +20,12 @@ RTMCPP_EXPORT namespace rtmcpp {
 	}
 
 	template<typename ComponentType>
+	Matrix4x4<ComponentType> Mat4Cast(const Matrix3x4<ComponentType>& mat)
+	{
+		return Matrix4x4<ComponentType>{rtm::matrix_cast(mat.Value)};
+	}
+
+	template<typename ComponentType>
 	Matrix3x4<ComponentType> operator*(const Matrix3x4<ComponentType>& mat, const Quat<ComponentType>& quat)
 	{
 		return mat * Mat3x4Cast(quat);
