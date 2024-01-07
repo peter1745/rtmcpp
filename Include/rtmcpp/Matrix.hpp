@@ -35,6 +35,22 @@ RTMCPP_EXPORT namespace rtmcpp {
 		using ValueType = std::conditional_t<std::is_same_v<ComponentType, float>, rtm::matrix4x4f, rtm::matrix4x4d>;
 		ValueType Value = rtm::matrix_identity();
 
+		Matrix4x4() = default;
+
+		Matrix4x4(ValueType value)
+			: Value(value) {}
+
+		Matrix4x4(const Matrix3x4<ComponentType>& mat)
+			: Value(rtm::matrix_cast(mat.Value))
+		{
+		}
+
+		Matrix4x4& RTMCPP_VECTOR_CALL operator=(const Matrix3x4<ComponentType>& mat)
+		{
+			Value = rtm::matrix_cast(mat.Value);
+			return *this;
+		}
+
 		Matrix4x4& RTMCPP_VECTOR_CALL operator*=(const Matrix4x4& other)
 		{
 			Value = rtm::matrix_mul(Value, other.Value);
@@ -64,7 +80,8 @@ RTMCPP_EXPORT namespace rtmcpp {
 	template<typename ComponentType>
 	Matrix3x4<ComponentType> RTMCPP_VECTOR_CALL operator*(const Matrix3x4<ComponentType>& lhs, const Matrix4x4<ComponentType>& rhs)
 	{
-		return { rtm::matrix_cast((Matrix4x4<ComponentType>{rtm::matrix_cast(lhs.Value)} * rhs).Value) };
+		auto mat = Matrix4x4<ComponentType>{ rtm::matrix_cast(lhs.Value) } * rhs;
+		return { rtm::matrix_cast(mat.Value) };
 	}
 
 	using Mat3x4 = Matrix3x4<float>;
