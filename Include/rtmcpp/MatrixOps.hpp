@@ -49,4 +49,10 @@ RTMCPP_EXPORT namespace rtmcpp {
 		return Mat4Cast(quat) * mat;
 	}
 
+	template<typename ComponentType>
+	Matrix4x4<ComponentType> Inverse(const Matrix4x4<ComponentType>& mat)
+	{
+		return { rtm::matrix_inverse(mat.Value) };
+	}
+
 }
