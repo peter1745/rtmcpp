@@ -56,9 +56,9 @@ RTMCPP_EXPORT namespace rtmcpp {
 			Value = rtm::vector_set(x, y, z, w);
 		}
 
-		Vector(const Vector<ComponentType, 3>& xyz, ComponentType w = ComponentType(0)) noexcept requires(ComponentCount >= 3)
+		Vector(const Vector<ComponentType, 3>& xyz, ComponentType w) noexcept requires(ComponentCount == 4)
 		{
-			Value = rtm::vector_set(xyz.X, xyz.Y, xyz.Z, 0.0f);
+			Value = rtm::vector_set(xyz.X, xyz.Y, xyz.Z, w);
 		}
 
 		Vector(const Vector& other) noexcept
