@@ -8,8 +8,6 @@
 	#include <rtm/vector4d.h>
 #endif
 
-#include "Conversion.hpp"
-
 RTMCPP_EXPORT namespace rtmcpp {
 
 	template<typename ComponentType, size_t ComponentCount>
@@ -183,9 +181,6 @@ RTMCPP_EXPORT namespace rtmcpp {
 		{
 			return rtm::vector_distance3(Value, other.Value);
 		}
-
-		template<bool dummy = true>
-		operator glm::vec3() const requires(IsObject<glm::vec3>) { return { X, Y, Z }; }
 	};
 
 	using Vec2 = Vector<float, 2>;

@@ -2,15 +2,6 @@
 #include <rtmcpp/Scalar.hpp>
 #include <rtmcpp/Transforms.hpp>
 
-namespace glm {
-
-	struct vec3
-	{
-		float x, y, z;
-	};
-
-}
-
 int main(int argc, char* argv[])
 {
 	using namespace rtmcpp;
