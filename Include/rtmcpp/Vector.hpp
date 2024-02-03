@@ -54,6 +54,11 @@ RTMCPP_EXPORT namespace rtmcpp {
 			Value = rtm::vector_set(x, y, z, w);
 		}
 
+		Vector(const Vector<ComponentType, 2>& xy, ComponentType z) noexcept requires(ComponentCount == 3)
+		{
+			Value = rtm::vector_set(xy.X, xy.Y, z, ComponentType(0));
+		}
+
 		Vector(const Vector<ComponentType, 3>& xyz, ComponentType w) noexcept requires(ComponentCount == 4)
 		{
 			Value = rtm::vector_set(xyz.X, xyz.Y, xyz.Z, w);

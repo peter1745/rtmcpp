@@ -12,9 +12,9 @@ RTMCPP_EXPORT namespace rtmcpp {
 
 		PackedVector2() noexcept = default;
 		PackedVector2(const Vector<ComponentType, 2>& vec) noexcept
-			: X(vec.X), Y(vec.Y)
-		{
-		}
+			: X(vec.X), Y(vec.Y) {}
+		PackedVector2(ComponentType x, ComponentType y) noexcept
+			: X(x), Y(y) {}
 
 		operator Vector<ComponentType, 2>() const noexcept { return Vector<ComponentType, 2>{ X, Y }; }
 	};
@@ -28,9 +28,9 @@ RTMCPP_EXPORT namespace rtmcpp {
 
 		PackedVector3() noexcept = default;
 		PackedVector3(const Vector<ComponentType, 3>& vec) noexcept
-			: X(vec.X), Y(vec.Y), Z(vec.Z)
-		{
-		}
+			: X(vec.X), Y(vec.Y), Z(vec.Z) {}
+		PackedVector3(ComponentType x, ComponentType y, ComponentType z) noexcept
+			: X(x), Y(y), Z(z) {}
 
 		operator Vector<ComponentType, 3>() const noexcept { return Vector<ComponentType, 3>{ X, Y, Z }; }
 	};
@@ -45,9 +45,9 @@ RTMCPP_EXPORT namespace rtmcpp {
 
 		PackedVector4() noexcept = default;
 		PackedVector4(const Vector<ComponentType, 4>& vec) noexcept
-			: X(vec.X), Y(vec.Y), Z(vec.Z), W(vec.W)
-		{
-		}
+			: X(vec.X), Y(vec.Y), Z(vec.Z), W(vec.W) {}
+		PackedVector4(ComponentType x, ComponentType y, ComponentType z, ComponentType w) noexcept
+			: X(x), Y(y), Z(z), W(w) {}
 
 		operator Vector<ComponentType, 4>() const noexcept { return Vector<ComponentType, 4>{ X, Y, Z, W }; }
 	};
