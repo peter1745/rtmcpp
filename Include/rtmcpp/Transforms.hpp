@@ -10,7 +10,12 @@ RTMCPP_EXPORT namespace rtmcpp {
 	template<typename ComponentType>
 	Matrix3x4<ComponentType> Translation(const Vector<ComponentType, 3>& translation)
 	{
-		return { rtm::matrix_from_translation(translation.Value) };
+		return {
+			rtm::vector_set(ComponentType(1), ComponentType(0), ComponentType(0), ComponentType(0)),
+			rtm::vector_set(ComponentType(0), ComponentType(1), ComponentType(0), ComponentType(0)),
+			rtm::vector_set(ComponentType(0), ComponentType(0), ComponentType(1), ComponentType(0)),
+			rtm::vector_set(translation.X, translation.Y, translation.Z, ComponentType(1))
+		};
 	}
 
 	template<typename ComponentType>

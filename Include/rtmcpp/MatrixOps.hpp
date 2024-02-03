@@ -55,4 +55,10 @@ RTMCPP_EXPORT namespace rtmcpp {
 		return { rtm::matrix_inverse(mat.Value) };
 	}
 
+	template<typename ComponentType>
+	Matrix4x4<ComponentType> Transpose(const Matrix4x4<ComponentType>& mat)
+	{
+		return { rtm::matrix_transpose(mat.Value) };
+	}
+
 }

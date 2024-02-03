@@ -75,6 +75,17 @@ RTMCPP_EXPORT namespace rtmcpp {
 
 			return result;
 		}
+
+		static Matrix4x4 RTMCPP_VECTOR_CALL Orthographic(ComponentType width, ComponentType height, ComponentType near, ComponentType far)
+		{
+			Matrix4x4 result;
+			ComponentType invDistance = ComponentType(1) / (far - near);
+			result.Value.x_axis = rtm::vector_set(ComponentType(2) / width, ComponentType(0), ComponentType(0), ComponentType(0));
+			result.Value.y_axis = rtm::vector_set(ComponentType(0), ComponentType(2) / height, ComponentType(0), ComponentType(0));
+			result.Value.z_axis = rtm::vector_set(ComponentType(0), ComponentType(0), invDistance, ComponentType(0));
+			result.Value.w_axis = rtm::vector_set(ComponentType(0), ComponentType(0), -invDistance * near, ComponentType(1));
+			return result;
+		}
 	};
 
 	template<typename ComponentType>
